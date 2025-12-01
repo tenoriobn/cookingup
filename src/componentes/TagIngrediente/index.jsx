@@ -17,9 +17,11 @@ const Botao = styled.button`
 
 
 const TagIngrediente = ({ ingrediente, onClick, ativo }) => {
-    return (<Botao $ativo={ativo} onClick={onClick}>
-        {ingrediente.nome}
-    </Botao>)
+    return (
+        <Botao $ativo={ativo} onClick={onClick}>
+            {ingrediente.nome}
+        </Botao>
+    )
 }
 
 export default TagIngrediente

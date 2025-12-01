@@ -1,0 +1,21 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<TagIngrediente /> > snapshot quando ativo = false 1`] = `
+<div>
+  <button
+    class="sc-bczSft eYMIVd"
+  >
+    Tomate
+  </button>
+</div>
+`;
+
+exports[`<TagIngrediente /> > snapshot quando ativo = true 1`] = `
+<div>
+  <button
+    class="sc-bczSft kUJMIt"
+  >
+    Tomate
+  </button>
+</div>
+`;
