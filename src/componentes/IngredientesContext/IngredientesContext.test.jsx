@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { IngredientesProvider, IngredientesContext } from './index';
 import { useContext } from 'react';
 
@@ -91,5 +91,40 @@ describe('IngredientesProvider', () => {
     fireEvent.click(botao);
     expect(screen.getByTestId('quantidade')).toHaveTextContent('0');
     expect(screen.getByTestId('esta-selecionado')).toHaveTextContent('nao');
+  });
+
+  test('deve verificar se o ingrediente está selecionado', async () => {
+    const TestComponent = () => {
+      const { alternarIngrediente, ingredienteEstaSelecionado } = useContext(IngredientesContext);
+
+      const ingredienteMock = { id: 1, nome: 'Queijo' };
+
+      return (
+        <div>
+          <span data-testid="esta-selecionado">
+            {ingredienteEstaSelecionado(ingredienteMock) ? 'sim' : 'nao'}
+          </span>
+
+          <button onClick={() => alternarIngrediente(ingredienteMock)}>
+            Alternar ingrediente
+          </button>
+        </div>
+      );
+    };
+
+    render(
+      <IngredientesProvider>
+        <TestComponent />
+      </IngredientesProvider>
+    );
+
+    expect(screen.getByTestId('esta-selecionado').textContent).toBe('nao');
+
+    const botao = screen.getByText('Alternar ingrediente');
+    fireEvent.click(botao);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('esta-selecionado').textContent).toBe('sim');
+    });
   });
 });
